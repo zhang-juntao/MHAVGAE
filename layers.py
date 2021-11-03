@@ -2,7 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-#定义全连接网络Fully connected network
+#Define Fully connected network
 class fully_connectedLyer(nn.Module):
     def __init__(self, in_features, out_features):
         super(fully_connectedLyer, self).__init__()
@@ -14,7 +14,7 @@ class fully_connectedLyer(nn.Module):
         x = self.model(x)
         return x
 
-#定义注意力层
+#Define Attention Layer
 class GraphAttentionLayer(nn.Module):
     def __init__(self, in_features, out_features, dropout, alpha, concat=True):
         super(GraphAttentionLayer, self).__init__()
@@ -53,7 +53,7 @@ class GraphAttentionLayer(nn.Module):
         Wh_repeated_alternating = Wh.repeat(N, 1)
 
         all_combinations_matrix = torch.cat([Wh_repeated_in_chunks, Wh_repeated_alternating], dim=1)
-        #相当于 all_combinations_matrix = torch.cat([Wh.repeat(1, N).view(N*N, -1), Wh.repeat(N, 1)], dim=1).shape
+        #all_combinations_matrix = torch.cat([Wh.repeat(1, N).view(N*N, -1), Wh.repeat(N, 1)], dim=1).shape
         return all_combinations_matrix.view(N, N, 2 * self.out_features)
 
     def __repr__(self):
