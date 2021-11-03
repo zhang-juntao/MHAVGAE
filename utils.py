@@ -41,7 +41,6 @@ def load_data(dataset):
     features = sp.vstack((allx, tx)).tolil()
     features[test_idx_reorder, :] = features[test_idx_range, :]
     features = torch.FloatTensor(np.array(features.todense()))
-    #adj = nx.adjacency_matrix(nx.from_dict_of_lists(graph))
     adj = graph
 
     return adj, features
@@ -144,11 +143,11 @@ def mask_test_edges(adj):
     # NOTE: these edge lists only contain single direction of edge!
     return adj_train, train_edges, val_edges, val_edges_false, test_edges, test_edges_false
 
-#读取由概念表示文本的特征和文本之间的先决关系形成的矩阵
+#Read the matrix formed by the features of the conceptual representation of the text and the preexisting relationships between the texts
 def read_text_data(dataset):
     edges_file = 'data/' + dataset + '_edge.tsv'
     features_file = 'data/' + dataset + '_embedding150.tsv'
-    tfidf_file = 'data/' + dataset + '_tfidf_feature.tsv' #R-C关系
+    tfidf_file = 'data/' + dataset + '_tfidf_feature.tsv' #R-C relation
     
     df_tfidf_temp = pd.read_csv(tfidf_file, header = None, sep='\t')
     df_tfidf = df_tfidf_temp.loc[:,1:len(df_tfidf_temp.columns)-2]
@@ -158,7 +157,7 @@ def read_text_data(dataset):
     df = df_temp.loc[:,1:len(df_temp.columns)]
     #feature = torch.from_numpy(df.values)
     feature = torch.FloatTensor(df.values)
-    #创建矩阵信息
+    #The matrix information
     graph = np.zeros((df_temp.shape[0], df_temp.shape[0]),dtype=float)
     with open(edges_file, 'r', encoding='utf-8') as f:
         for line in f.readlines():
