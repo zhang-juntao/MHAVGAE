@@ -5,6 +5,9 @@ from layers import GraphConvolution, GraphAttentionLayer, fully_connectedLyer
 
 #Define Multi-Head Attention
 class MHGAT(nn.Module):
+    """
+    Simple GAT layer, similar to https://arxiv.org/abs/1710.10903
+    """
     def __init__(self, input_feat_dim, output_feat_dim, dropout, alpha, nheads):
         super(MHGAT, self).__init__()
         self.dropout = dropout
