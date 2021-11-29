@@ -83,9 +83,13 @@ def gae_for(args, seed_num):
 
         hidden_emb = mu.data.numpy()
         train_acc = get_acc(recovered,adj_label)
+        
+        roc_curr, ap_curr, _, _ = get_roc_score(hidden_emb, adj_orig, val_edges, val_edges_false)
 
         print("Epoch:", '%04d' % (epoch + 1), "train_loss=", "{:.5f}".format(cur_loss),
               "train_acc=", "{:.5f}".format(train_acc),
+              "val_auc=", "{:.5f}".format(roc_curr),
+              "val_ap=", "{:.5f}".format(ap_curr),
               "time=", "{:.5f}".format(time.time() - t)
               )
 
