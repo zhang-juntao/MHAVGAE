@@ -5,9 +5,6 @@ from layers import GraphConvolution, GraphAttentionLayer, fully_connectedLyer
 
 #Define Multi-Head Attention
 class MHGAT(nn.Module):
-    """
-    Simple GAT layer, similar to https://arxiv.org/abs/1710.10903
-    """
     def __init__(self, input_feat_dim, output_feat_dim, dropout, alpha, nheads):
         super(MHGAT, self).__init__()
         self.dropout = dropout
@@ -64,8 +61,8 @@ class GCNModelVAE(nn.Module):
         self.gc2 = GraphConvolution(hidden_dim1, hidden_dim2, dropout, act=lambda x: x)
         self.gc3 = GraphConvolution(hidden_dim1, hidden_dim2, dropout, act=lambda x: x)
         self.dc = InnerProductDecoder(dropout, act=lambda x: x)
-        self.input_feat_dim = input_feat_dim
-        self.output_feat_dim = input_feat_dim
+        #self.input_feat_dim = input_feat_dim
+        #self.output_feat_dim = input_feat_dim
         
         #fusion
         self.gatefusion = gatedFusion(input_feat_dim, t_input_dim, t_n_nodes, dropout, alpha, nheads)
